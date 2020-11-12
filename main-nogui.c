@@ -10,8 +10,9 @@
 #include <time.h>
 #include <string.h>
 #include <libcdvd.h>
-#include <fileXio.h>
-#include <fileXio_rpc.h>
+//#include <fileXio.h>
+//#include <fileXio_rpc.h>
+#include <fcntl.h>
 #include <sbv_patches.h>
 #include "OSDInit.h"
 
@@ -101,7 +102,7 @@ int main(int argc, char *argv[], char **envp)
 		int argc;
 		char path[1025];
 		
-		default_OSDSYS_path[5] = (romver[4] == 'E' ? 'E' : 
+		default_OSDSYS_path[6] = (romver[4] == 'E' ? 'E' : 
 			(romver[4] == 'J' ? 'I' : 
 				(romver[4] == 'H' ? 'A' : 
 					(romver[4] == 'U' ? 'A' : romver[4]))));
@@ -123,24 +124,43 @@ int main(int argc, char *argv[], char **envp)
 	}
 	
 	
-	if (file_exists("mc0:/B?EXEC-SYSTEM/osdmain.elf")) CargarelOSDSYS("mc:/B?EXEC-SYSTEM/osdmain.elf");
-	if (file_exists("mc0:/B?EXEC-SYSTEM/osd110.elf")) CargarelOSDSYS("mc:/B?EXEC-SYSTEM/osd110.elf");
-	if (file_exists("mc0:/B?EXEC-SYSTEM/osd120.elf")) CargarelOSDSYS("mc:/B?EXEC-SYSTEM/osd120.elf");
-	if (file_exists("mc0:/B?EXEC-SYSTEM/osd130.elf")) CargarelOSDSYS("mc:/B?EXEC-SYSTEM/osd130.elf");
-	if (file_exists("mc0:/B?EXEC-SYSTEM/osd140.elf")) CargarelOSDSYS("mc:/B?EXEC-SYSTEM/osd140.elf");
-	if (file_exists("mc0:/B?EXEC-SYSTEM/osd150.elf")) CargarelOSDSYS("mc:/B?EXEC-SYSTEM/osd150.elf");
-	if (file_exists("mc0:/B?EXEC-SYSTEM/osd160.elf")) CargarelOSDSYS("mc:/B?EXEC-SYSTEM/osd160.elf");
-	if (file_exists("mc0:/B?EXEC-SYSTEM/osd170.elf")) CargarelOSDSYS("mc:/B?EXEC-SYSTEM/osd170.elf");
-	if (file_exists("mc0:/B?EXEC-SYSTEM/osd180.elf")) CargarelOSDSYS("mc:/B?EXEC-SYSTEM/osd180.elf");
-	if (file_exists("mc0:/B?EXEC-SYSTEM/osd190.elf")) CargarelOSDSYS("mc:/B?EXEC-SYSTEM/osd190.elf");
-	if (file_exists("mc0:/B?EXEC-SYSTEM/osd200.elf")) CargarelOSDSYS("mc:/B?EXEC-SYSTEM/osd200.elf");
-	if (file_exists("mc0:/B?EXEC-SYSTEM/osd210.elf")) CargarelOSDSYS("mc:/B?EXEC-SYSTEM/osd210.elf");
-	if (file_exists("mc0:/B?EXEC-SYSTEM/osd220.elf")) CargarelOSDSYS("mc:/B?EXEC-SYSTEM/osd220.elf");
-	if (file_exists("mc0:/B?EXEC-SYSTEM/osd230.elf")) CargarelOSDSYS("mc:/B?EXEC-SYSTEM/osd230.elf");
-	if (file_exists("mc0:/B?EXEC-SYSTEM/osd240.elf")) CargarelOSDSYS("mc:/B?EXEC-SYSTEM/osd240.elf");
-	if (file_exists("mc0:/B?EXEC-SYSTEM/osd250.elf")) CargarelOSDSYS("mc:/B?EXEC-SYSTEM/osd250.elf");
-	if (file_exists("mc0:/B?EXEC-SYSTEM/osd260.elf")) CargarelOSDSYS("mc:/B?EXEC-SYSTEM/osd260.elf");
-	if (file_exists("mc0:/B?EXEC-SYSTEM/osd270.elf")) CargarelOSDSYS("mc:/B?EXEC-SYSTEM/osd270.elf");
+	if (file_exists("mc0:/B?EXEC-SYSTEM/osdmain.elf")) CargarelOSDSYS("mc0:/B?EXEC-SYSTEM/osdmain.elf");
+	if (file_exists("mc0:/B?EXEC-SYSTEM/osd110.elf")) CargarelOSDSYS("mc0:/B?EXEC-SYSTEM/osd110.elf");
+	if (file_exists("mc0:/B?EXEC-SYSTEM/osd120.elf")) CargarelOSDSYS("mc0:/B?EXEC-SYSTEM/osd120.elf");
+	if (file_exists("mc0:/B?EXEC-SYSTEM/osd130.elf")) CargarelOSDSYS("mc0:/B?EXEC-SYSTEM/osd130.elf");
+	if (file_exists("mc0:/B?EXEC-SYSTEM/osd140.elf")) CargarelOSDSYS("mc0:/B?EXEC-SYSTEM/osd140.elf");
+	if (file_exists("mc0:/B?EXEC-SYSTEM/osd150.elf")) CargarelOSDSYS("mc0:/B?EXEC-SYSTEM/osd150.elf");
+	if (file_exists("mc0:/B?EXEC-SYSTEM/osd160.elf")) CargarelOSDSYS("mc0:/B?EXEC-SYSTEM/osd160.elf");
+	if (file_exists("mc0:/B?EXEC-SYSTEM/osd170.elf")) CargarelOSDSYS("mc0:/B?EXEC-SYSTEM/osd170.elf");
+	if (file_exists("mc0:/B?EXEC-SYSTEM/osd180.elf")) CargarelOSDSYS("mc0:/B?EXEC-SYSTEM/osd180.elf");
+	if (file_exists("mc0:/B?EXEC-SYSTEM/osd190.elf")) CargarelOSDSYS("mc0:/B?EXEC-SYSTEM/osd190.elf");
+	if (file_exists("mc0:/B?EXEC-SYSTEM/osd200.elf")) CargarelOSDSYS("mc0:/B?EXEC-SYSTEM/osd200.elf");
+	if (file_exists("mc0:/B?EXEC-SYSTEM/osd210.elf")) CargarelOSDSYS("mc0:/B?EXEC-SYSTEM/osd210.elf");
+	if (file_exists("mc0:/B?EXEC-SYSTEM/osd220.elf")) CargarelOSDSYS("mc0:/B?EXEC-SYSTEM/osd220.elf");
+	if (file_exists("mc0:/B?EXEC-SYSTEM/osd230.elf")) CargarelOSDSYS("mc0:/B?EXEC-SYSTEM/osd230.elf");
+	if (file_exists("mc0:/B?EXEC-SYSTEM/osd240.elf")) CargarelOSDSYS("mc0:/B?EXEC-SYSTEM/osd240.elf");
+	if (file_exists("mc0:/B?EXEC-SYSTEM/osd250.elf")) CargarelOSDSYS("mc0:/B?EXEC-SYSTEM/osd250.elf");
+	if (file_exists("mc0:/B?EXEC-SYSTEM/osd260.elf")) CargarelOSDSYS("mc0:/B?EXEC-SYSTEM/osd260.elf");
+	if (file_exists("mc0:/B?EXEC-SYSTEM/osd270.elf")) CargarelOSDSYS("mc0:/B?EXEC-SYSTEM/osd270.elf");
+
+        if (file_exists("mc1:/B?EXEC-SYSTEM/osdmain.elf")) CargarelOSDSYS("mc1:/B?EXEC-SYSTEM/osdmain.elf");
+	if (file_exists("mc1:/B?EXEC-SYSTEM/osd110.elf")) CargarelOSDSYS("mc1:/B?EXEC-SYSTEM/osd110.elf");
+	if (file_exists("mc1:/B?EXEC-SYSTEM/osd120.elf")) CargarelOSDSYS("mc1:/B?EXEC-SYSTEM/osd120.elf");
+	if (file_exists("mc1:/B?EXEC-SYSTEM/osd130.elf")) CargarelOSDSYS("mc1:/B?EXEC-SYSTEM/osd130.elf");
+	if (file_exists("mc1:/B?EXEC-SYSTEM/osd140.elf")) CargarelOSDSYS("mc1:/B?EXEC-SYSTEM/osd140.elf");
+	if (file_exists("mc1:/B?EXEC-SYSTEM/osd150.elf")) CargarelOSDSYS("mc1:/B?EXEC-SYSTEM/osd150.elf");
+	if (file_exists("mc1:/B?EXEC-SYSTEM/osd160.elf")) CargarelOSDSYS("mc1:/B?EXEC-SYSTEM/osd160.elf");
+	if (file_exists("mc1:/B?EXEC-SYSTEM/osd170.elf")) CargarelOSDSYS("mc1:/B?EXEC-SYSTEM/osd170.elf");
+	if (file_exists("mc1:/B?EXEC-SYSTEM/osd180.elf")) CargarelOSDSYS("mc1:/B?EXEC-SYSTEM/osd180.elf");
+	if (file_exists("mc1:/B?EXEC-SYSTEM/osd190.elf")) CargarelOSDSYS("mc1:/B?EXEC-SYSTEM/osd190.elf");
+	if (file_exists("mc1:/B?EXEC-SYSTEM/osd200.elf")) CargarelOSDSYS("mc1:/B?EXEC-SYSTEM/osd200.elf");
+	if (file_exists("mc1:/B?EXEC-SYSTEM/osd210.elf")) CargarelOSDSYS("mc1:/B?EXEC-SYSTEM/osd210.elf");
+	if (file_exists("mc1:/B?EXEC-SYSTEM/osd220.elf")) CargarelOSDSYS("mc1:/B?EXEC-SYSTEM/osd220.elf");
+	if (file_exists("mc1:/B?EXEC-SYSTEM/osd230.elf")) CargarelOSDSYS("mc1:/B?EXEC-SYSTEM/osd230.elf");
+	if (file_exists("mc1:/B?EXEC-SYSTEM/osd240.elf")) CargarelOSDSYS("mc1:/B?EXEC-SYSTEM/osd240.elf");
+	if (file_exists("mc1:/B?EXEC-SYSTEM/osd250.elf")) CargarelOSDSYS("mc1:/B?EXEC-SYSTEM/osd250.elf");
+	if (file_exists("mc1:/B?EXEC-SYSTEM/osd260.elf")) CargarelOSDSYS("mc1:/B?EXEC-SYSTEM/osd260.elf");
+	if (file_exists("mc1:/B?EXEC-SYSTEM/osd270.elf")) CargarelOSDSYS("mc1:/B?EXEC-SYSTEM/osd270.elf");
 	/*
 	if (file_exists("mc0:/BAEXEC-SYSTEM/osdmain.elf")) CargarelOSDSYS("mc:/BAEXEC-SYSTEM/osdmain.elf");
 	if (file_exists("mc0:/BAEXEC-SYSTEM/osd110.elf")) CargarelOSDSYS("mc:/BAEXEC-SYSTEM/osd110.elf");
@@ -199,87 +219,87 @@ int main(int argc, char *argv[], char **envp)
 	*/
 	/////////////////
 	// Agregar dentro del while la llamada al SYSLOOP.ELF
-	scr_printf("\n Prioritary region: EUR \n");	
+	scr_printf("\n Prioritary region: USA \n");	
 	scr_printf("\n\n If you stuck on this screen for a while, \n verify you have connected a Memory Card \n with XtremeEliteBoot+ or FreeMCBoot \n properly installed. \n");	
 	while(1){
-		if (file_exists("mc0:/B?EXEC-SYSTEM/osdmain.elf")) CargarelOSDSYS("mc:/B?EXEC-SYSTEM/osdmain.elf");
-		if (file_exists("mc0:/B?EXEC-SYSTEM/osd110.elf")) CargarelOSDSYS("mc:/B?EXEC-SYSTEM/osd110.elf");
-		if (file_exists("mc0:/B?EXEC-SYSTEM/osd120.elf")) CargarelOSDSYS("mc:/B?EXEC-SYSTEM/osd120.elf");
-		if (file_exists("mc0:/B?EXEC-SYSTEM/osd130.elf")) CargarelOSDSYS("mc:/B?EXEC-SYSTEM/osd130.elf");
-		if (file_exists("mc0:/B?EXEC-SYSTEM/osd140.elf")) CargarelOSDSYS("mc:/B?EXEC-SYSTEM/osd140.elf");
-		if (file_exists("mc0:/B?EXEC-SYSTEM/osd150.elf")) CargarelOSDSYS("mc:/B?EXEC-SYSTEM/osd150.elf");
-		if (file_exists("mc0:/B?EXEC-SYSTEM/osd160.elf")) CargarelOSDSYS("mc:/B?EXEC-SYSTEM/osd160.elf");
-		if (file_exists("mc0:/B?EXEC-SYSTEM/osd170.elf")) CargarelOSDSYS("mc:/B?EXEC-SYSTEM/osd170.elf");
-		if (file_exists("mc0:/B?EXEC-SYSTEM/osd180.elf")) CargarelOSDSYS("mc:/B?EXEC-SYSTEM/osd180.elf");
-		if (file_exists("mc0:/B?EXEC-SYSTEM/osd190.elf")) CargarelOSDSYS("mc:/B?EXEC-SYSTEM/osd190.elf");
-		if (file_exists("mc0:/B?EXEC-SYSTEM/osd200.elf")) CargarelOSDSYS("mc:/B?EXEC-SYSTEM/osd200.elf");
-		if (file_exists("mc0:/B?EXEC-SYSTEM/osd210.elf")) CargarelOSDSYS("mc:/B?EXEC-SYSTEM/osd210.elf");
-		if (file_exists("mc0:/B?EXEC-SYSTEM/osd220.elf")) CargarelOSDSYS("mc:/B?EXEC-SYSTEM/osd220.elf");
-		if (file_exists("mc0:/B?EXEC-SYSTEM/osd230.elf")) CargarelOSDSYS("mc:/B?EXEC-SYSTEM/osd230.elf");
-		if (file_exists("mc0:/B?EXEC-SYSTEM/osd240.elf")) CargarelOSDSYS("mc:/B?EXEC-SYSTEM/osd240.elf");
-		if (file_exists("mc0:/B?EXEC-SYSTEM/osd250.elf")) CargarelOSDSYS("mc:/B?EXEC-SYSTEM/osd250.elf");
-		if (file_exists("mc0:/B?EXEC-SYSTEM/osd260.elf")) CargarelOSDSYS("mc:/B?EXEC-SYSTEM/osd260.elf");
-		if (file_exists("mc0:/B?EXEC-SYSTEM/osd270.elf")) CargarelOSDSYS("mc:/B?EXEC-SYSTEM/osd270.elf");
+		if (file_exists("mc0:/B?EXEC-SYSTEM/osdmain.elf")) CargarelOSDSYS("mc0:/B?EXEC-SYSTEM/osdmain.elf");
+		if (file_exists("mc0:/B?EXEC-SYSTEM/osd110.elf")) CargarelOSDSYS("mc0:/B?EXEC-SYSTEM/osd110.elf");
+		if (file_exists("mc0:/B?EXEC-SYSTEM/osd120.elf")) CargarelOSDSYS("mc0:/B?EXEC-SYSTEM/osd120.elf");
+		if (file_exists("mc0:/B?EXEC-SYSTEM/osd130.elf")) CargarelOSDSYS("mc0:/B?EXEC-SYSTEM/osd130.elf");
+		if (file_exists("mc0:/B?EXEC-SYSTEM/osd140.elf")) CargarelOSDSYS("mc0:/B?EXEC-SYSTEM/osd140.elf");
+		if (file_exists("mc0:/B?EXEC-SYSTEM/osd150.elf")) CargarelOSDSYS("mc0:/B?EXEC-SYSTEM/osd150.elf");
+		if (file_exists("mc0:/B?EXEC-SYSTEM/osd160.elf")) CargarelOSDSYS("mc0:/B?EXEC-SYSTEM/osd160.elf");
+		if (file_exists("mc0:/B?EXEC-SYSTEM/osd170.elf")) CargarelOSDSYS("mc0:/B?EXEC-SYSTEM/osd170.elf");
+		if (file_exists("mc0:/B?EXEC-SYSTEM/osd180.elf")) CargarelOSDSYS("mc0:/B?EXEC-SYSTEM/osd180.elf");
+		if (file_exists("mc0:/B?EXEC-SYSTEM/osd190.elf")) CargarelOSDSYS("mc0:/B?EXEC-SYSTEM/osd190.elf");
+		if (file_exists("mc0:/B?EXEC-SYSTEM/osd200.elf")) CargarelOSDSYS("mc0:/B?EXEC-SYSTEM/osd200.elf");
+		if (file_exists("mc0:/B?EXEC-SYSTEM/osd210.elf")) CargarelOSDSYS("mc0:/B?EXEC-SYSTEM/osd210.elf");
+		if (file_exists("mc0:/B?EXEC-SYSTEM/osd220.elf")) CargarelOSDSYS("mc0:/B?EXEC-SYSTEM/osd220.elf");
+		if (file_exists("mc0:/B?EXEC-SYSTEM/osd230.elf")) CargarelOSDSYS("mc0:/B?EXEC-SYSTEM/osd230.elf");
+		if (file_exists("mc0:/B?EXEC-SYSTEM/osd240.elf")) CargarelOSDSYS("mc0:/B?EXEC-SYSTEM/osd240.elf");
+		if (file_exists("mc0:/B?EXEC-SYSTEM/osd250.elf")) CargarelOSDSYS("mc0:/B?EXEC-SYSTEM/osd250.elf");
+		if (file_exists("mc0:/B?EXEC-SYSTEM/osd260.elf")) CargarelOSDSYS("mc0:/B?EXEC-SYSTEM/osd260.elf");
+		if (file_exists("mc0:/B?EXEC-SYSTEM/osd270.elf")) CargarelOSDSYS("mc0:/B?EXEC-SYSTEM/osd270.elf");
 		//
-		if (file_exists("mc0:/BEEXEC-SYSTEM/osdmain.elf")) CargarelOSDSYS("mc:/BEEXEC-SYSTEM/osdmain.elf");
-		if (file_exists("mc0:/BEEXEC-SYSTEM/osd110.elf")) CargarelOSDSYS("mc:/BEEXEC-SYSTEM/osd110.elf");
-		if (file_exists("mc0:/BEEXEC-SYSTEM/osd120.elf")) CargarelOSDSYS("mc:/BEEXEC-SYSTEM/osd120.elf");
-		if (file_exists("mc0:/BEEXEC-SYSTEM/osd130.elf")) CargarelOSDSYS("mc:/BEEXEC-SYSTEM/osd130.elf");
-		if (file_exists("mc0:/BEEXEC-SYSTEM/osd140.elf")) CargarelOSDSYS("mc:/BEEXEC-SYSTEM/osd140.elf");
-		if (file_exists("mc0:/BEEXEC-SYSTEM/osd150.elf")) CargarelOSDSYS("mc:/BEEXEC-SYSTEM/osd150.elf");
-		if (file_exists("mc0:/BEEXEC-SYSTEM/osd160.elf")) CargarelOSDSYS("mc:/BEEXEC-SYSTEM/osd160.elf");
-		if (file_exists("mc0:/BEEXEC-SYSTEM/osd170.elf")) CargarelOSDSYS("mc:/BEEXEC-SYSTEM/osd170.elf");
-		if (file_exists("mc0:/BEEXEC-SYSTEM/osd180.elf")) CargarelOSDSYS("mc:/BEEXEC-SYSTEM/osd180.elf");
-		if (file_exists("mc0:/BEEXEC-SYSTEM/osd190.elf")) CargarelOSDSYS("mc:/BEEXEC-SYSTEM/osd190.elf");
-		if (file_exists("mc0:/BEEXEC-SYSTEM/osd200.elf")) CargarelOSDSYS("mc:/BEEXEC-SYSTEM/osd200.elf");
-		if (file_exists("mc0:/BEEXEC-SYSTEM/osd210.elf")) CargarelOSDSYS("mc:/BEEXEC-SYSTEM/osd210.elf");
-		if (file_exists("mc0:/BEEXEC-SYSTEM/osd220.elf")) CargarelOSDSYS("mc:/BEEXEC-SYSTEM/osd220.elf");
-		if (file_exists("mc0:/BEEXEC-SYSTEM/osd230.elf")) CargarelOSDSYS("mc:/BEEXEC-SYSTEM/osd230.elf");
-		if (file_exists("mc0:/BEEXEC-SYSTEM/osd240.elf")) CargarelOSDSYS("mc:/BEEXEC-SYSTEM/osd240.elf");
-		if (file_exists("mc0:/BEEXEC-SYSTEM/osd250.elf")) CargarelOSDSYS("mc:/BEEXEC-SYSTEM/osd250.elf");
-		if (file_exists("mc0:/BEEXEC-SYSTEM/osd260.elf")) CargarelOSDSYS("mc:/BEEXEC-SYSTEM/osd260.elf");
-		if (file_exists("mc0:/BEEXEC-SYSTEM/osd270.elf")) CargarelOSDSYS("mc:/BEEXEC-SYSTEM/osd270.elf");
+		if (file_exists("mc0:/BEEXEC-SYSTEM/osdmain.elf")) CargarelOSDSYS("mc0:/BEEXEC-SYSTEM/osdmain.elf");
+		if (file_exists("mc0:/BEEXEC-SYSTEM/osd110.elf")) CargarelOSDSYS("mc0:/BEEXEC-SYSTEM/osd110.elf");
+		if (file_exists("mc0:/BEEXEC-SYSTEM/osd120.elf")) CargarelOSDSYS("mc0:/BEEXEC-SYSTEM/osd120.elf");
+		if (file_exists("mc0:/BEEXEC-SYSTEM/osd130.elf")) CargarelOSDSYS("mc0:/BEEXEC-SYSTEM/osd130.elf");
+		if (file_exists("mc0:/BEEXEC-SYSTEM/osd140.elf")) CargarelOSDSYS("mc0:/BEEXEC-SYSTEM/osd140.elf");
+		if (file_exists("mc0:/BEEXEC-SYSTEM/osd150.elf")) CargarelOSDSYS("mc0:/BEEXEC-SYSTEM/osd150.elf");
+		if (file_exists("mc0:/BEEXEC-SYSTEM/osd160.elf")) CargarelOSDSYS("mc0:/BEEXEC-SYSTEM/osd160.elf");
+		if (file_exists("mc0:/BEEXEC-SYSTEM/osd170.elf")) CargarelOSDSYS("mc0:/BEEXEC-SYSTEM/osd170.elf");
+		if (file_exists("mc0:/BEEXEC-SYSTEM/osd180.elf")) CargarelOSDSYS("mc0:/BEEXEC-SYSTEM/osd180.elf");
+		if (file_exists("mc0:/BEEXEC-SYSTEM/osd190.elf")) CargarelOSDSYS("mc0:/BEEXEC-SYSTEM/osd190.elf");
+		if (file_exists("mc0:/BEEXEC-SYSTEM/osd200.elf")) CargarelOSDSYS("mc0:/BEEXEC-SYSTEM/osd200.elf");
+		if (file_exists("mc0:/BEEXEC-SYSTEM/osd210.elf")) CargarelOSDSYS("mc0:/BEEXEC-SYSTEM/osd210.elf");
+		if (file_exists("mc0:/BEEXEC-SYSTEM/osd220.elf")) CargarelOSDSYS("mc0:/BEEXEC-SYSTEM/osd220.elf");
+		if (file_exists("mc0:/BEEXEC-SYSTEM/osd230.elf")) CargarelOSDSYS("mc0:/BEEXEC-SYSTEM/osd230.elf");
+		if (file_exists("mc0:/BEEXEC-SYSTEM/osd240.elf")) CargarelOSDSYS("mc0:/BEEXEC-SYSTEM/osd240.elf");
+		if (file_exists("mc0:/BEEXEC-SYSTEM/osd250.elf")) CargarelOSDSYS("mc0:/BEEXEC-SYSTEM/osd250.elf");
+		if (file_exists("mc0:/BEEXEC-SYSTEM/osd260.elf")) CargarelOSDSYS("mc0:/BEEXEC-SYSTEM/osd260.elf");
+		if (file_exists("mc0:/BEEXEC-SYSTEM/osd270.elf")) CargarelOSDSYS("mc0:/BEEXEC-SYSTEM/osd270.elf");
 		//
-		if (file_exists("mc0:/BAEXEC-SYSTEM/osdmain.elf")) CargarelOSDSYS("mc:/BAEXEC-SYSTEM/osdmain.elf");
-		if (file_exists("mc0:/BAEXEC-SYSTEM/osd110.elf")) CargarelOSDSYS("mc:/BAEXEC-SYSTEM/osd110.elf");
-		if (file_exists("mc0:/BAEXEC-SYSTEM/osdsys.elf")) CargarelOSDSYS("mc:/BAEXEC-SYSTEM/osdsys.elf");
-		if (file_exists("mc0:/BAEXEC-SYSTEM/osdmain.elf")) CargarelOSDSYS("mc:/BAEXEC-SYSTEM/osdmain.elf");
-		if (file_exists("mc0:/BAEXEC-SYSTEM/osd110.elf")) CargarelOSDSYS("mc:/BAEXEC-SYSTEM/osd110.elf");
-		if (file_exists("mc0:/BAEXEC-SYSTEM/osd120.elf")) CargarelOSDSYS("mc:/BAEXEC-SYSTEM/osd120.elf");
-		if (file_exists("mc0:/BAEXEC-SYSTEM/osd130.elf")) CargarelOSDSYS("mc:/BAEXEC-SYSTEM/osd130.elf");
-		if (file_exists("mc0:/BAEXEC-SYSTEM/osd140.elf")) CargarelOSDSYS("mc:/BAEXEC-SYSTEM/osd140.elf");
-		if (file_exists("mc0:/BAEXEC-SYSTEM/osd150.elf")) CargarelOSDSYS("mc:/BAEXEC-SYSTEM/osd150.elf");
-		if (file_exists("mc0:/BAEXEC-SYSTEM/osd160.elf")) CargarelOSDSYS("mc:/BAEXEC-SYSTEM/osd160.elf");
-		if (file_exists("mc0:/BAEXEC-SYSTEM/osd170.elf")) CargarelOSDSYS("mc:/BAEXEC-SYSTEM/osd170.elf");
-		if (file_exists("mc0:/BAEXEC-SYSTEM/osd180.elf")) CargarelOSDSYS("mc:/BAEXEC-SYSTEM/osd180.elf");
-		if (file_exists("mc0:/BAEXEC-SYSTEM/osd190.elf")) CargarelOSDSYS("mc:/BAEXEC-SYSTEM/osd190.elf");
-		if (file_exists("mc0:/BAEXEC-SYSTEM/osd200.elf")) CargarelOSDSYS("mc:/BAEXEC-SYSTEM/osd200.elf");
-		if (file_exists("mc0:/BAEXEC-SYSTEM/osd210.elf")) CargarelOSDSYS("mc:/BAEXEC-SYSTEM/osd210.elf");
-		if (file_exists("mc0:/BAEXEC-SYSTEM/osd220.elf")) CargarelOSDSYS("mc:/BAEXEC-SYSTEM/osd220.elf");
-		if (file_exists("mc0:/BAEXEC-SYSTEM/osd230.elf")) CargarelOSDSYS("mc:/BAEXEC-SYSTEM/osd230.elf");
-		if (file_exists("mc0:/BAEXEC-SYSTEM/osd240.elf")) CargarelOSDSYS("mc:/BAEXEC-SYSTEM/osd240.elf");
-		if (file_exists("mc0:/BAEXEC-SYSTEM/osd250.elf")) CargarelOSDSYS("mc:/BAEXEC-SYSTEM/osd250.elf");
-		if (file_exists("mc0:/BAEXEC-SYSTEM/osd260.elf")) CargarelOSDSYS("mc:/BAEXEC-SYSTEM/osd260.elf");
-		if (file_exists("mc0:/BAEXEC-SYSTEM/osd270.elf")) CargarelOSDSYS("mc:/BAEXEC-SYSTEM/osd270.elf");
+		if (file_exists("mc0:/BAEXEC-SYSTEM/osdmain.elf")) CargarelOSDSYS("mc0:/BAEXEC-SYSTEM/osdmain.elf");
+		if (file_exists("mc0:/BAEXEC-SYSTEM/osd110.elf")) CargarelOSDSYS("mc0:/BAEXEC-SYSTEM/osd110.elf");
+		if (file_exists("mc0:/BAEXEC-SYSTEM/osdsys.elf")) CargarelOSDSYS("mc0:/BAEXEC-SYSTEM/osdsys.elf");
+		if (file_exists("mc0:/BAEXEC-SYSTEM/osdmain.elf")) CargarelOSDSYS("mc0:/BAEXEC-SYSTEM/osdmain.elf");
+		if (file_exists("mc0:/BAEXEC-SYSTEM/osd110.elf")) CargarelOSDSYS("mc0:/BAEXEC-SYSTEM/osd110.elf");
+		if (file_exists("mc0:/BAEXEC-SYSTEM/osd120.elf")) CargarelOSDSYS("mc0:/BAEXEC-SYSTEM/osd120.elf");
+		if (file_exists("mc0:/BAEXEC-SYSTEM/osd130.elf")) CargarelOSDSYS("mc0:/BAEXEC-SYSTEM/osd130.elf");
+		if (file_exists("mc0:/BAEXEC-SYSTEM/osd140.elf")) CargarelOSDSYS("mc0:/BAEXEC-SYSTEM/osd140.elf");
+		if (file_exists("mc0:/BAEXEC-SYSTEM/osd150.elf")) CargarelOSDSYS("mc0:/BAEXEC-SYSTEM/osd150.elf");
+		if (file_exists("mc0:/BAEXEC-SYSTEM/osd160.elf")) CargarelOSDSYS("mc0:/BAEXEC-SYSTEM/osd160.elf");
+		if (file_exists("mc0:/BAEXEC-SYSTEM/osd170.elf")) CargarelOSDSYS("mc0:/BAEXEC-SYSTEM/osd170.elf");
+		if (file_exists("mc0:/BAEXEC-SYSTEM/osd180.elf")) CargarelOSDSYS("mc0:/BAEXEC-SYSTEM/osd180.elf");
+		if (file_exists("mc0:/BAEXEC-SYSTEM/osd190.elf")) CargarelOSDSYS("mc0:/BAEXEC-SYSTEM/osd190.elf");
+		if (file_exists("mc0:/BAEXEC-SYSTEM/osd200.elf")) CargarelOSDSYS("mc0:/BAEXEC-SYSTEM/osd200.elf");
+		if (file_exists("mc0:/BAEXEC-SYSTEM/osd210.elf")) CargarelOSDSYS("mc0:/BAEXEC-SYSTEM/osd210.elf");
+		if (file_exists("mc0:/BAEXEC-SYSTEM/osd220.elf")) CargarelOSDSYS("mc0:/BAEXEC-SYSTEM/osd220.elf");
+		if (file_exists("mc0:/BAEXEC-SYSTEM/osd230.elf")) CargarelOSDSYS("mc0:/BAEXEC-SYSTEM/osd230.elf");
+		if (file_exists("mc0:/BAEXEC-SYSTEM/osd240.elf")) CargarelOSDSYS("mc0:/BAEXEC-SYSTEM/osd240.elf");
+		if (file_exists("mc0:/BAEXEC-SYSTEM/osd250.elf")) CargarelOSDSYS("mc0:/BAEXEC-SYSTEM/osd250.elf");
+		if (file_exists("mc0:/BAEXEC-SYSTEM/osd260.elf")) CargarelOSDSYS("mc0:/BAEXEC-SYSTEM/osd260.elf");
+		if (file_exists("mc0:/BAEXEC-SYSTEM/osd270.elf")) CargarelOSDSYS("mc0:/BAEXEC-SYSTEM/osd270.elf");
 		//
-		if (file_exists("mc0:/BIEXEC-SYSTEM/osdmain.elf")) CargarelOSDSYS("mc:/BIEXEC-SYSTEM/osdmain.elf");
-		if (file_exists("mc0:/BIEXEC-SYSTEM/osd110.elf")) CargarelOSDSYS("mc:/BIEXEC-SYSTEM/osd110.elf");
-		if (file_exists("mc0:/BIEXEC-SYSTEM/osd120.elf")) CargarelOSDSYS("mc:/BIEXEC-SYSTEM/osd120.elf");
-		if (file_exists("mc0:/BIEXEC-SYSTEM/osd130.elf")) CargarelOSDSYS("mc:/BIEXEC-SYSTEM/osd130.elf");
-		if (file_exists("mc0:/BIEXEC-SYSTEM/osd140.elf")) CargarelOSDSYS("mc:/BIEXEC-SYSTEM/osd140.elf");
-		if (file_exists("mc0:/BIEXEC-SYSTEM/osd150.elf")) CargarelOSDSYS("mc:/BIEXEC-SYSTEM/osd150.elf");
-		if (file_exists("mc0:/BIEXEC-SYSTEM/osd160.elf")) CargarelOSDSYS("mc:/BIEXEC-SYSTEM/osd160.elf");
-		if (file_exists("mc0:/BIEXEC-SYSTEM/osd170.elf")) CargarelOSDSYS("mc:/BIEXEC-SYSTEM/osd170.elf");
-		if (file_exists("mc0:/BIEXEC-SYSTEM/osd180.elf")) CargarelOSDSYS("mc:/BIEXEC-SYSTEM/osd180.elf");
-		if (file_exists("mc0:/BIEXEC-SYSTEM/osd190.elf")) CargarelOSDSYS("mc:/BIEXEC-SYSTEM/osd190.elf");
-		if (file_exists("mc0:/BIEXEC-SYSTEM/osd200.elf")) CargarelOSDSYS("mc:/BIEXEC-SYSTEM/osd200.elf");
-		if (file_exists("mc0:/BIEXEC-SYSTEM/osd210.elf")) CargarelOSDSYS("mc:/BIEXEC-SYSTEM/osd210.elf");
-		if (file_exists("mc0:/BIEXEC-SYSTEM/osd220.elf")) CargarelOSDSYS("mc:/BIEXEC-SYSTEM/osd220.elf");
-		if (file_exists("mc0:/BIEXEC-SYSTEM/osd230.elf")) CargarelOSDSYS("mc:/BIEXEC-SYSTEM/osd230.elf");
-		if (file_exists("mc0:/BIEXEC-SYSTEM/osd240.elf")) CargarelOSDSYS("mc:/BIEXEC-SYSTEM/osd240.elf");
-		if (file_exists("mc0:/BIEXEC-SYSTEM/osd250.elf")) CargarelOSDSYS("mc:/BIEXEC-SYSTEM/osd250.elf");
-		if (file_exists("mc0:/BIEXEC-SYSTEM/osd260.elf")) CargarelOSDSYS("mc:/BIEXEC-SYSTEM/osd260.elf");
-		if (file_exists("mc0:/BIEXEC-SYSTEM/osd270.elf")) CargarelOSDSYS("mc:/BIEXEC-SYSTEM/osd270.elf");
+		if (file_exists("mc0:/BIEXEC-SYSTEM/osdmain.elf"))CargarelOSDSYS("mc0:/BIEXEC-SYSTEM/osdmain.elf");
+		if (file_exists("mc0:/BIEXEC-SYSTEM/osd110.elf")) CargarelOSDSYS("mc0:/BIEXEC-SYSTEM/osd110.elf");
+		if (file_exists("mc0:/BIEXEC-SYSTEM/osd120.elf")) CargarelOSDSYS("mc0:/BIEXEC-SYSTEM/osd120.elf");
+		if (file_exists("mc0:/BIEXEC-SYSTEM/osd130.elf")) CargarelOSDSYS("mc0:/BIEXEC-SYSTEM/osd130.elf");
+		if (file_exists("mc0:/BIEXEC-SYSTEM/osd140.elf")) CargarelOSDSYS("mc0:/BIEXEC-SYSTEM/osd140.elf");
+		if (file_exists("mc0:/BIEXEC-SYSTEM/osd150.elf")) CargarelOSDSYS("mc0:/BIEXEC-SYSTEM/osd150.elf");
+		if (file_exists("mc0:/BIEXEC-SYSTEM/osd160.elf")) CargarelOSDSYS("mc0:/BIEXEC-SYSTEM/osd160.elf");
+		if (file_exists("mc0:/BIEXEC-SYSTEM/osd170.elf")) CargarelOSDSYS("mc0:/BIEXEC-SYSTEM/osd170.elf");
+		if (file_exists("mc0:/BIEXEC-SYSTEM/osd180.elf")) CargarelOSDSYS("mc0:/BIEXEC-SYSTEM/osd180.elf");
+		if (file_exists("mc0:/BIEXEC-SYSTEM/osd190.elf")) CargarelOSDSYS("mc0:/BIEXEC-SYSTEM/osd190.elf");
+		if (file_exists("mc0:/BIEXEC-SYSTEM/osd200.elf")) CargarelOSDSYS("mc0:/BIEXEC-SYSTEM/osd200.elf");
+		if (file_exists("mc0:/BIEXEC-SYSTEM/osd210.elf")) CargarelOSDSYS("mc0:/BIEXEC-SYSTEM/osd210.elf");
+		if (file_exists("mc0:/BIEXEC-SYSTEM/osd220.elf")) CargarelOSDSYS("mc0:/BIEXEC-SYSTEM/osd220.elf");
+		if (file_exists("mc0:/BIEXEC-SYSTEM/osd230.elf")) CargarelOSDSYS("mc0:/BIEXEC-SYSTEM/osd230.elf");
+		if (file_exists("mc0:/BIEXEC-SYSTEM/osd240.elf")) CargarelOSDSYS("mc0:/BIEXEC-SYSTEM/osd240.elf");
+		if (file_exists("mc0:/BIEXEC-SYSTEM/osd250.elf")) CargarelOSDSYS("mc0:/BIEXEC-SYSTEM/osd250.elf");
+		if (file_exists("mc0:/BIEXEC-SYSTEM/osd260.elf")) CargarelOSDSYS("mc0:/BIEXEC-SYSTEM/osd260.elf");
+		if (file_exists("mc0:/BIEXEC-SYSTEM/osd270.elf")) CargarelOSDSYS("mc0:/BIEXEC-SYSTEM/osd270.elf");
 		//CargarelOSDSYS("mc:/B?EXEC-SYSTEM/osdmain.elf");
 		if (file_exists("mc0:/BOOT/BOOT2.ELF")) LoadElf("mc0:/BOOT/BOOT2.ELF", "mc0:/BOOT/");
 		if (file_exists("mc0:/FORTUNA/BOOT2.ELF")) LoadElf("mc0:/FORTUNA/BOOT2.ELF", "mc0:/FORTUNA/");

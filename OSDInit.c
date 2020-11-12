@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <fcntl.h>
 #include <kernel.h>
 #include <string.h>
 #include <libcdvd.h>
