@@ -219,7 +219,7 @@ int main(int argc, char *argv[], char **envp)
 	*/
 	/////////////////
 	// Agregar dentro del while la llamada al SYSLOOP.ELF
-	scr_printf("\n Prioritary region: USA \n");	
+	scr_printf("\n Prioritary region: EUR \n");	
 	scr_printf("\n\n If you stuck on this screen for a while, \n verify you have connected a Memory Card \n with XtremeEliteBoot+ or FreeMCBoot \n properly installed. \n");	
 	while(1){
 		if (file_exists("mc0:/B?EXEC-SYSTEM/osdmain.elf")) CargarelOSDSYS("mc0:/B?EXEC-SYSTEM/osdmain.elf");
