@@ -41,7 +41,7 @@ on consoles with v2.30+ BIOS. Of course, it will work as intended on any console
 the main reason to use this application, right?
 
 Notes:
-We made an "small" adjustment on the software logic to avoid a certain issue: people having a messy FMCB installation
+We made a "small" adjustment on the software logic to avoid a certain issue: people having a messy FMCB installation
 on their memory card AND users using a launcher from "certain developer" who does not knows how to reset IOP properly.
 It seems that there's someone on eBay selling FMCB memory cards with a "multi-region" installed FMCB v1.8C which
 includes three different FMCBs installations made from three different consoles. That setup is a nonsense as the
