@@ -11,10 +11,10 @@ jobs:
     steps:
 
       - name: Install dependencies
-      run: |
-        apk add build-base git 
-    - uses: actions/checkout@v2
-
+        run: |
+          apk add build-base git 
+      - uses: actions/checkout@v2
+      
       - name: Compile 
         run: |
           make
