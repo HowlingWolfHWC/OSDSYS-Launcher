@@ -303,19 +303,22 @@ int main(int argc, char *argv[], char **envp)
 		//CargarelOSDSYS("mc:/B?EXEC-SYSTEM/osdmain.elf");
 		if (file_exists("mc0:/BOOT/BOOT2.ELF")) LoadElf("mc0:/BOOT/BOOT2.ELF", "mc0:/BOOT/");
 		if (file_exists("mc0:/FORTUNA/BOOT2.ELF")) LoadElf("mc0:/FORTUNA/BOOT2.ELF", "mc0:/FORTUNA/");
+		if (file_exists("mc0:/OPENTUNA/BOOT2.ELF")) LoadElf("mc0:/OPENTUNA/BOOT2.ELF", "mc0:/OPENTUNA/");
 		if (file_exists("mc0:/APPS/BOOT.ELF")) LoadElf("mc0:/APPS/BOOT.ELF", "mc0:/APPS/");
 		if (file_exists("mc0:/APPS/ULE.ELF")) LoadElf("mc0:/APPS/ULE.ELF", "mc0:/APPS/");
 		if (file_exists("mc0:/BOOT/ULE.ELF")) LoadElf("mc0:/BOOT/ULE.ELF", "mc0:/BOOT/");
 		if (file_exists("mc0:/APPS/WLE.ELF")) LoadElf("mc0:/APPS/WLE.ELF", "mc0:/APPS/");
 		if (file_exists("mc0:/BOOT/WLE.ELF")) LoadElf("mc0:/BOOT/WLE.ELF", "mc0:/BOOT/");
 		if (file_exists("mc1:/BOOT/BOOT.ELF")) LoadElf("mc1:/BOOT/BOOT.ELF", "mc1:/BOOT/");
-		if (file_exists("mc1:/FORTUNA/BOOT2.ELF")) LoadElf("mc1:/FORTUNA/BOOT2.ELF", "mc1:/FORTUNA/");
 		if (file_exists("mc1:/APPS/BOOT.ELF")) LoadElf("mc1:/APPS/BOOT.ELF", "mc1:/APPS/");
 		if (file_exists("mc1:/APPS/ULE.ELF")) LoadElf("mc1:/APPS/ULE.ELF", "mc1:/APPS/");
 		if (file_exists("mc1:/BOOT/ULE.ELF")) LoadElf("mc1:/BOOT/ULE.ELF", "mc1:/BOOT/");
 		if (file_exists("mc1:/APPS/WLE.ELF")) LoadElf("mc1:/APPS/WLE.ELF", "mc1:/APPS/");
 		if (file_exists("mc1:/BOOT/WLE.ELF")) LoadElf("mc1:/BOOT/WLE.ELF", "mc1:/BOOT/");
 		if (file_exists("mc1:/FORTUNA/BOOT.ELF")) LoadElf("mc1:/FORTUNA/BOOT.ELF", "mc1:/FORTUNA/");
+		if (file_exists("mc1:/FORTUNA/BOOT2.ELF")) LoadElf("mc1:/FORTUNA/BOOT2.ELF", "mc1:/FORTUNA/");
+		if (file_exists("mc1:/OPENTUNA/BOOT.ELF")) LoadElf("mc1:/OPENTUNA/BOOT.ELF", "mc1:/OPENTUNA/");
+		if (file_exists("mc1:/OPENTUNA/BOOT2.ELF")) LoadElf("mc1:/OPENTUNA/BOOT2.ELF", "mc1:/OPENTUNA/");
 	}
 	return 0; //Nadie deberá llegar a acá
 }
